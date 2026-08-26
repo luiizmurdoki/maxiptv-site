@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Max IPTV — Filmes, séries e canais ao vivo, numa TV só</title>
+<meta name="description" content="Max IPTV reúne canais ao vivo, filmes e séries num app só, feito pra Smart TV. Um login, todos os perfis da família, continue assistindo de onde parou.">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #070A0F;
+    --panel: #0F141C;
+    --panel2: #141B26;
+    --border: #1D2530;
+    --text: #F6F8FC;
+    --text-dim: #93A0B4;
+    --text-mute: #5C6B80;
+    --accent: #FFB020;
+    --accent-soft: #FFD180;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* fundo com glow suave, mesmo espírito do gradiente pastel do Sequel, só que na nossa paleta escura */
+  .glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(255,176,32,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(255,106,0,0.10), transparent 60%),
+      radial-gradient(ellipse 800px 600px at 50% 100%, rgba(255,176,32,0.08), transparent 60%);
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+  nav { display: flex; gap: 28px; }
+  nav a { color: var(--text-dim); text-decoration: none; font-size: 15px; }
+  nav a:hover { color: var(--text); }
+
+  .hero {
+    max-width: 780px;
+    margin: 60px auto 0;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(255,176,32,0.1);
+    border: 1px solid rgba(255,176,32,0.25);
+    color: var(--accent-soft);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 26px;
+  }
+  h1 {
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+  h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--text-dim);
+    font-size: 19px;
+    max-width: 540px;
+    margin: 22px auto 0;
+  }
+  .plataformas {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  /* mockups de TV inclinados, no espírito dos phones do Sequel */
+  .mockups {
+    position: relative;
+    max-width: 980px;
+    margin: 70px auto 0;
+    padding: 0 24px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: -40px;
+  }
+  .tv {
+    width: 620px;
+    max-width: 78vw;
+    aspect-ratio: 16/10;
+    border-radius: 18px;
+    background: linear-gradient(160deg, #10151d, #060809);
+    border: 1px solid var(--border);
+    box-shadow: 0 60px 120px -40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    padding: 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .tv-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #141B26, #0B0F16);
+    overflow: hidden;
+    position: relative;
+  }
+  .tv-row { display: flex; gap: 10px; padding: 22px 26px 0; }
+  .tv-card { flex: 1; aspect-ratio: 2/3; border-radius: 8px; background: linear-gradient(145deg, rgba(255,176,32,0.22), rgba(255,255,255,0.04)); }
+  .tv-card:nth-child(2) { background: linear-gradient(145deg, rgba(120,170,255,0.2), rgba(255,255,255,0.04)); }
+  .tv-card:nth-child(3) { background: linear-gradient(145deg, rgba(255,120,180,0.18), rgba(255,255,255,0.04)); }
+  .tv-card:nth-child(4) { background: linear-gradient(145deg, rgba(120,255,180,0.16), rgba(255,255,255,0.04)); }
+  .tv-bar { position: absolute; bottom: 20px; left: 26px; right: 26px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); }
+  .tv-bar::after { content:''; position:absolute; left:0; top:0; bottom:0; width: 38%; border-radius: 3px; background: var(--accent); }
+  .phone {
+    width: 190px;
+    aspect-ratio: 9/19.5;
+    border-radius: 32px;
+    background: linear-gradient(160deg, #10151d, #060809);
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8);
+    padding: 10px;
+    position: relative;
+    z-index: 3;
+    transform: rotate(9deg) translate(-60px, 30px);
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #141B26, #0B0F16);
+    padding: 18px 14px;
+  }
+  .phone-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent); margin: 0 auto 14px; }
+  .phone-line { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.08); margin-bottom: 10px; }
+  .phone-line.short { width: 60%; margin: 0 auto 18px; background: rgba(255,255,255,0.14); }
+
+  section { max-width: 1100px; margin: 0 auto; padding: 110px 24px 0; }
+  .kicker { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; margin-top: 10px; max-width: 620px; }
+  section > p.lead { color: var(--text-dim); font-size: 17px; max-width: 560px; margin-top: 16px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+  }
+  .card .ico { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,176,32,0.12); display:flex; align-items:center; justify-content:center; margin-bottom: 18px; font-size: 20px; }
+  .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .card p { color: var(--text-dim); font-size: 14.5px; }
+
+  .planos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    max-width: 700px;
+    margin: 50px auto 0;
+  }
+  .plano {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 34px 30px;
+    text-align: center;
+  }
+  .plano.destaque { border-color: rgba(255,176,32,0.4); background: linear-gradient(160deg, rgba(255,176,32,0.08), var(--panel)); }
+  .plano .tag { display:inline-block; font-size:12px; font-weight:700; color: var(--accent); background: rgba(255,176,32,0.12); padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+  .plano .preco { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; }
+  .plano .preco span { font-size: 16px; color: var(--text-dim); font-weight: 500; }
+  .plano .desc { color: var(--text-dim); font-size: 14px; margin-top: 8px; }
+
+  .cta-box {
+    margin: 130px auto 0;
+    max-width: 1100px;
+    padding: 60px 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .cta-box h2 { margin: 0 auto; }
+  .cta-box p.lead { margin-left: auto; margin-right: auto; }
+  .em-breve {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 14px 26px;
+    border-radius: 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  footer {
+    max-width: 1100px;
+    margin: 90px auto 0;
+    padding: 34px 24px 50px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .brand { font-size: 15px; }
+  footer nav { gap: 22px; }
+  footer nav a { font-size: 14px; }
+  footer .copy { color: var(--text-mute); font-size: 13px; width: 100%; margin-top: 10px; }
+
+  @media (max-width: 720px) {
+    nav { display: none; }
+    .grid { grid-template-columns: 1fr; }
+    .planos { grid-template-columns: 1fr; }
+    .phone { display: none; }
+    .mockups { padding-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<header>
+  <div class="brand"><span class="dot"></span> Max IPTV</div>
+  <nav>
+    <a href="#produto">Produto</a>
+    <a href="#planos">Planos</a>
+    <a href="https://app.maxiptvoficial.com.br/privacidade.html">Privacidade</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="badge">🚀 Em desenvolvimento — página de apresentação</div>
+  <h1>Todos os seus canais, filmes e séries.<br>Numa <span>TV só</span>.</h1>
+  <p>Max IPTV reúne tudo o que você assiste num app feito pra Smart TV — com perfis pra cada um da família e continue-assistindo que nunca te deixa na mão.</p>
+  <div class="plataformas">
+    <div class="chip">📺 Samsung Smart TV</div>
+    <div class="chip">🍎 Apple TV</div>
+    <div class="chip">📱 iPhone / Android — em breve</div>
+  </div>
+</div>
+
+<div class="mockups">
+  <div class="tv">
+    <div class="tv-screen">
+      <div class="tv-row">
+        <div class="tv-card"></div>
+        <div class="tv-card"></div>
+        <div class="tv-card"></div>
+        <div class="tv-card"></div>
+      </div>
+      <div class="tv-bar"></div>
+    </div>
+  </div>
+  <div class="phone">
+    <div class="phone-screen">
+      <div class="phone-avatar"></div>
+      <div class="phone-line short"></div>
+      <div class="phone-line"></div>
+      <div class="phone-line"></div>
+      <div class="phone-line" style="width:70%"></div>
+    </div>
+  </div>
+</div>
+
+<section id="produto">
+  <div class="kicker">Produto</div>
+  <h2>Feito pra quem assiste de verdade, não pra quem só instala um app.</h2>
+  <p class="lead">Cada detalhe pensado pra tela grande da sala — sem menu confuso, sem travar, sem perder o episódio que você parou ontem.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="ico">👥</div>
+      <h3>Perfis pra cada um</h3>
+      <p>Um login só, mas cada pessoa da casa tem seu próprio perfil, avatar, favoritos e histórico — sem bagunçar o que o outro está assistindo.</p>
+    </div>
+    <div class="card">
+      <div class="ico">⏱️</div>
+      <h3>Continue assistindo</h3>
+      <p>Pausou no meio do episódio? Da próxima vez o app já abre exatamente de onde você parou, sem precisar procurar.</p>
+    </div>
+    <div class="card">
+      <div class="ico">🎬</div>
+      <h3>Catálogo rico</h3>
+      <p>Filmes, séries e canais ao vivo organizados com capas, sinopses e informações de verdade — não uma lista crua de nomes de arquivo.</p>
+    </div>
+    <div class="card">
+      <div class="ico">📲</div>
+      <h3>Pareamento pelo celular</h3>
+      <p>Aponta a câmera, aponta o código, pronto — login feito na TV sem precisar digitar senha com o controle remoto.</p>
+    </div>
+    <div class="card">
+      <div class="ico">🔗</div>
+      <h3>Uma assinatura, todas as telas</h3>
+      <p>O mesmo acesso funciona na Samsung, na Apple TV e, em breve, no celular — sem pagar de novo por cada plataforma.</p>
+    </div>
+    <div class="card">
+      <div class="ico">🔒</div>
+      <h3>Seus dados, protegidos</h3>
+      <p>Conta e progresso ficam isolados por família — ninguém mais tem acesso ao que só é seu, e você pode excluir sua conta quando quiser.</p>
+    </div>
+  </div>
+</section>
+
+<section id="planos">
+  <div class="kicker">Planos</div>
+  <h2>Um preço só, acesso a tudo.</h2>
+  <p class="lead">Sem plano separado por app — o que você paga vale pra qualquer tela em que o Max IPTV estiver disponível.</p>
+
+  <div class="planos">
+    <div class="plano">
+      <div class="tag">Mensal</div>
+      <div class="preco">R$ 29<span>,90/mês</span></div>
+      <div class="desc">Cancele quando quiser.</div>
+    </div>
+    <div class="plano destaque">
+      <div class="tag">Anual · economize ~16%</div>
+      <div class="preco">R$ 300<span>/ano</span></div>
+      <div class="desc">Equivale a R$ 25/mês.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-box">
+  <div class="kicker" style="justify-content:center;display:flex;">Disponibilidade</div>
+  <h2>Ainda estamos preparando o lançamento nas lojas.</h2>
+  <p class="lead">Essa página existe pra apresentar o produto enquanto finalizamos os detalhes de distribuição na Samsung Store e na App Store.</p>
+  <div class="em-breve">🔧 Em breve por aqui</div>
+</div>
+
+<footer>
+  <div class="brand">Max IPTV</div>
+  <nav>
+    <a href="https://app.maxiptvoficial.com.br/privacidade.html">Privacidade</a>
+    <a href="https://app.maxiptvoficial.com.br/termos.html">Termos</a>
+  </nav>
+  <div class="copy">© 2026 Max IPTV. Todos os direitos reservados.</div>
+</footer>
+
+</body>
+</html>
