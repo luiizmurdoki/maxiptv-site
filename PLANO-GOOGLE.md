@@ -53,7 +53,7 @@ página não está indexada, em vez de a gente adivinhar. Vale por isso sozinho.
 ⏱️ Indexar leva de alguns dias a duas semanas. Não é instantâneo, e insistir no
 botão não acelera.
 
-### 2. `robots.txt` e `sitemap.xml`
+### 2. ~~`robots.txt` e `sitemap.xml`~~ ✅ feito em 31/08
 
 Dois arquivos, na raiz do repositório:
 
@@ -91,7 +91,7 @@ e "erro de certificado" num site de assinatura destrói confiança na hora.
 No GitHub Pages: **Settings → Pages**, conferir o domínio e reemitir o
 certificado com o `www` incluído.
 
-### 4. Canonical e Open Graph
+### 4. ~~Canonical e Open Graph~~ ✅ feito em 31/08
 
 No `<head>`:
 
@@ -134,10 +134,17 @@ deixar claro que é serviço legítimo, com CNPJ e contato, ajuda de verdade.
 
 ---
 
-## Ordem
+## Ordem — o que falta
 
-1. **Search Console + Request indexing** — sem isso, nada acontece;
-2. `robots.txt` + `sitemap.xml` — dois arquivos, 5 minutos;
-3. canonical + `og:` — melhora o link compartilhado hoje;
-4. `www` no certificado;
+1. **Search Console + Request indexing** ⬅️ **é só isto que falta para indexar**
+   — e continua sendo do Edu, porque exige a conta Google dele;
+2. ~~`robots.txt` + `sitemap.xml`~~ ✅ 31/08;
+3. ~~canonical + `og:`~~ ✅ 31/08, com a imagem `og.png` gerada por
+   `tools/GerarOG.swift` (mesma marca do ícone dos apps);
+4. **`www` no certificado** — GitHub → Settings → Pages. Também do Edu, porque
+   é a conta dele;
 5. links de fora, contínuo.
+
+> Depois de publicar, vale conferir o cartão do link colando a URL em
+> `developers.facebook.com/tools/debug/` — ele mostra como o WhatsApp vai
+> renderizar e força a releitura do cache.

@@ -1,0 +1,9 @@
+# Max IPTV — https://maxiptvoficial.com.br
+#
+# Sem restrição: o site é institucional e queremos que ele seja lido.
+# A ausência deste arquivo NÃO estava bloqueando nada (sem robots.txt, o padrão
+# já é "pode entrar") — ele existe pelo Sitemap abaixo e por higiene.
+User-agent: *
+Allow: /
+
+Sitemap: https://maxiptvoficial.com.br/sitemap.xml

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Uma página só, por enquanto. O sitemap quase não muda nada sozinho num site
+     deste tamanho, mas é o que o Search Console pede, e passa a valer assim que
+     houver uma segunda página (privacidade, termos, ajuda). -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://maxiptvoficial.com.br/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
