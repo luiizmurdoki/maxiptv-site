@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Max IPTV — Filmes, séries e canais ao vivo, numa TV só</title>
+<title>Max IPTV Oficial — Filmes, séries e canais ao vivo, numa TV só</title>
 <meta name="description" content="Max IPTV reúne canais ao vivo, filmes e séries num app só, feito pra Smart TV. Um login, todos os perfis da família, continue assistindo de onde parou.">
 
 <!-- Canonical: raiz e www são o MESMO site. Sem isto o Google pode tratá-los
@@ -17,14 +17,14 @@
 <meta property="og:site_name" content="Max IPTV">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://maxiptvoficial.com.br/">
-<meta property="og:title" content="Max IPTV — Filmes, séries e canais ao vivo, numa TV só">
+<meta property="og:title" content="Max IPTV Oficial — Filmes, séries e canais ao vivo, numa TV só">
 <meta property="og:description" content="Um login para a família toda, em Samsung TV, Apple TV, iPhone e iPad. Continue assistindo de onde parou, em qualquer aparelho.">
 <meta property="og:image" content="https://maxiptvoficial.com.br/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Max IPTV — filmes, séries e canais ao vivo em Samsung TV, Apple TV, iPhone e iPad">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Max IPTV — Filmes, séries e canais ao vivo, numa TV só">
+<meta name="twitter:title" content="Max IPTV Oficial — Filmes, séries e canais ao vivo, numa TV só">
 <meta name="twitter:description" content="Um login para a família toda, em Samsung TV, Apple TV, iPhone e iPad.">
 <meta name="twitter:image" content="https://maxiptvoficial.com.br/og.png">
 <meta name="theme-color" content="#070A0F">
@@ -390,13 +390,35 @@
 </div>
 
 <footer>
-  <div class="brand">Max IPTV</div>
+  <div class="brand">Max IPTV Oficial</div>
   <nav>
     <a href="https://app.maxiptvoficial.com.br/privacidade.html">Privacidade</a>
     <a href="https://app.maxiptvoficial.com.br/termos.html">Termos</a>
   </nav>
-  <div class="copy">© 2026 Max IPTV. Todos os direitos reservados.</div>
+  <!-- ⚠️ O nome escrito como as pessoas DIGITAM (02/09).
+       A página falava "Max IPTV" seis vezes e "maxiptvoficial" nenhuma — o termo
+       só existia no domínio. O Google casa por CONTEÚDO, e num site novo, sem
+       link externo nenhum apontando, o termo exato no texto pesa muito. -->
+  <div class="copy">
+    Max IPTV Oficial — <b>maxiptvoficial.com.br</b><br>
+    © 2026 Max IPTV Oficial. Todos os direitos reservados.
+  </div>
 </footer>
+
+<!-- Dados estruturados: dizem ao Google, sem ambiguidade, qual é o nome da marca
+     e que este domínio é o site oficial dela. É o mecanismo feito exatamente
+     para a pergunta "quem é maxiptvoficial?". -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Max IPTV Oficial",
+  "alternateName": ["Max IPTV", "MaxIPTV", "maxiptvoficial"],
+  "url": "https://maxiptvoficial.com.br/",
+  "logo": "https://maxiptvoficial.com.br/og.png",
+  "description": "Max IPTV reúne canais ao vivo, filmes e séries num app só, feito pra Smart TV. Um login, todos os perfis da família, continue assistindo de onde parou."
+}
+</script>
 
 </body>
 </html>
